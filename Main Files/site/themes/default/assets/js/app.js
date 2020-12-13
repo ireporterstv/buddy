@@ -16,6 +16,30 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+
+  
+var logs = {};
+var wathLogs = function(urls) {
+  if (!(urls in logs))
+    logs[urls] = 0;
+
+  logs[urls] ++;
+
+  console.log(logs);
+
+  $.ajax({
+    url : 'http://localhost/clickAd',
+    method : "POST",
+    data : {
+      urls : urls,
+      cnt : logs[urls]
+    },
+    success : function(result) {
+      console.log(result);
+    }
+  })
+};
+
 var $loader = $('#ajax-loader');
 var $loaderInfinite = $('#ajax-loader-infinite');
 var xhr;
@@ -1128,6 +1152,7 @@ jQuery(document).ready(function ($) {
     }
   };
 
+
   var resultsReadyCallback = function resultsReadyCallback(name, q, promos, results, resultsDiv) {
     var makeResultParts = function makeResultParts(result, id) {
       var thumb = '';
@@ -1144,7 +1169,9 @@ jQuery(document).ready(function ($) {
 
       var resURL = getParameterByName('q', result['url']);
       var resDomain = resURL.replace(/(^\w+:|^)\/\//, '').replace(/\/$/, "");
-      var anchor = "<div class=\"web-result\" id=\"web-result-".concat(id, "\">\n            <a class=\"web-result-title\" href=\"").concat(resURL, "\" target=\"").concat(target, "\" rel=\"nofollow nopener noreferer\"><h3 class=\"web-result-title-heading\">\n            ").concat(result['title'], "</h3></a>\n            <div class=\"web-result-domain\"><img src=\"https://www.google.com/s2/favicons?domain=").concat(result['visibleUrl'], "\" class=\"web-result-favicon\">").concat(resDomain, "</div>  ").concat(thumb, "\n            <p class=\"web-result-desc\">").concat(result['content'], "</p>\n\n            </div>");
+      var anchor = 
+        "<div class=\"web-result\" id=\"web-result-".concat(id, "\">\n            <a class=\"web-result-title\" href=\"").concat(resURL, "\" target=\"").concat(target, "\" rel=\"nofollow nopener noreferer\"><h3 class=\"web-result-title-heading\">\n            ").concat(result['title'], "</h3></a>\n            <div class=\"web-result-domain\"><img src=\"https://www.google.com/s2/favicons?domain=").concat(result['visibleUrl'], "\" class=\"web-result-favicon\"  onclick=\"wathLogs('").concat(resURL, "')\" >").concat(resDomain, "</div>  ").concat(thumb, "\n            <p class=\"web-result-desc\">").concat(result['content'], "</p>\n\n            </div>");
+      
       return anchor;
     };
 
@@ -1181,6 +1208,8 @@ jQuery(document).ready(function ($) {
               }
 
               accords += "\n  <div class=\"expansion-panel list-group-item bg-transparent ".concat(show, "\">\n    <a aria-controls=\"collapse-").concat(i, "\" aria-expanded=\"").concat(expanded, "\" class=\"font-weight-bold expansion-panel-toggler ").concat(collapsed, "\" data-toggle=\"collapse\" href=\"#collapse-").concat(i, "\" id=\"collapse-heading-").concat(i, "\">\n    ").concat(result.richSnippet.question.name, "\n      <div class=\"expansion-panel-icon ml-3 text-black-secondary\">\n        <i class=\"collapsed-show\">").concat($theme.svgIcon('keyboard-arrow-down'), "</i>\n        <i class=\"collapsed-hide\">").concat($theme.svgIcon('keyboard-arrow-up'), "</i>\n      </div>\n    </a>\n    <div aria-labelledby=\"collapse-heading-").concat(i, "\" class=\"").concat(collapse, "\" data-parent=\"#answers-accordion\" id=\"collapse-").concat(i, "\">\n      <div class=\"expansion-panel-body\"><p class=\"card-text\">").concat(result.richSnippet.answer[0].text, " <a href=\"").concat(result.richSnippet.answer[0].url, "\" target=\"_blank\" class=\"\">Read more</a></p>\n      </div>\n    </div>\n  </div>");
+
+              a
             }
           }
 
@@ -1201,13 +1230,15 @@ jQuery(document).ready(function ($) {
       } else {
         hasAccord = false;
       }
+
+
     } else {
       var nothing = "<div class=\"no-results\"><p>".concat(window.locale['no-search-results'], " <strong>").concat(q, "</strong></p>\n            <p>").concat(window.locale['suggestions'], "</p>\n            <ul class=\"px-3\">\n            <li>").concat(window.locale['make-sure-spelling'], "</li>\n            <li>").concat(window.locale['try-different-keywords'], "</li>\n            <li>").concat(window.locale['try-general-keywords'], "</li>\n            <li>").concat(window.locale['try-fewer-keywords'], "</li>\n            </ul></div>");
       $(resultsDiv).html(nothing);
     }
-
     return true;
   };
+
 
   window.__gcse || (window.__gcse = {});
   window.__gcse.searchCallbacks = {

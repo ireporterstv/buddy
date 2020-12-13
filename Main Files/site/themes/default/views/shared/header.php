@@ -7,26 +7,33 @@
 
 defined('SPARKIN') or die('xD');
 ?>
+
+
 <div id="site-navbar" class="site-navbar">
         <div class="searchbar">
     <div class="container search-container">
         <div class="row">
-            <div class=" mr-2 d-flex align-items-center searchbar-logo-wrap">
+            <div class=" mr-2 d-flex align-items-center searchbar-logo-wrap" style = "display:flex;flex-direction:row; justify-content : space-between">
                 <a href="<?php echo e_attr(url_for('site.home')); ?>" class="sp-link">
                     <img src="<?php echo e_attr($t['search_logo_url']); ?>" alt="<?php echo e_attr(get_option('site_name')); ?>" class="search-logo">
                 </a>
+
             </div>
+
+
             <div class="col-md-6 mt-sm-0 mt-4">
-                <form method="GET" action="<?php echo e_attr(url_for('site.search')); ?>" id="searchForm" data-ajax-form="true" data-before-callback="preventEmptySubmit">
+                <form method="GET" action="<?php echo e_attr(url_for('site.search')); ?>" id="searchForm" data-ajax-form="true" data-before-callback="preventEmptySubmit" style="display:flex; width:100%; justify-content:space-between"> 
                     <input type="hidden" name="engine" value="<?php echo e_attr($t['current_engine_id'] ? $t['current_engine_id'] : $t['default_engine']); ?>" id="engine">
-                    <div class="form-group searchbox-group searchbar-group">
+                    <div class="form-group searchbox-group searchbar-group" style="width : 70%">
                         <input type="text" class="form-control search-input" name="q"  data-autocomplete="true" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" value="<?php echo e_attr($t['search_query']); ?>" data-search-input="true">
                         <button type="submit" class="has-spinner search-btn right-0"><span class="btn-text"><?php echo svg_icon('search', 'svg-md'); ?></span>
-                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
                     </div>
 
+                    <input type="checkbox" <?= $t['isProduct'] == 1 ? 'checked': '' ?> data-toggle="toggle" data-on="<i class='fa fa-search'></i>&nbsp;&nbsp; Production" data-off="<i class='fa fa-info-circle'></i>&nbsp;&nbsp; Information" name = "queryType" value = "1" style = "max-width:20%;">
                 </form>
             </div>
+
             <!-- ./col-md-6 -->
             <div class="col-auto ml-auto searchbar-toggler-pull-up right-0">
                   <button class="navbar-toggler d-flex" type="button" id="dropdownMenuButton" data-target="#offcanvas" data-toggle="navdrawer">
@@ -51,9 +58,9 @@ defined('SPARKIN') or die('xD');
                         </a>
                     </li>
                     <?php endforeach; ?>
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <?php if ($t['header_heading']) : ?>
@@ -63,7 +70,10 @@ defined('SPARKIN') or die('xD');
     </div>
     </div>
     <?php endif; ?>
-
 </div>
+
+
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <?php insert('shared/offcanvas_menu.php'); ?>

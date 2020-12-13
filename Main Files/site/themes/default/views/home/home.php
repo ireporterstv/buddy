@@ -5,6 +5,7 @@
  */
 defined('SPARKIN') or die('xD');
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
 <?php insert('shared/offcanvas_menu.php'); ?>
 <!-- Dimmer for dimming the background when searchbox is focused -->
@@ -61,26 +62,29 @@ defined('SPARKIN') or die('xD');
 <div class="container home-container">
 
     <!-- Homepage logo section -->
-    <div class="home-logo-wrap py-2 <?php echo e_attr($t['logo_alignment_class']); ?> mb-2 position-relative px-1">
+    
+    <form method="GET" action="<?php echo e_attr(url_for('site.search')); ?>" id="searchForm" data-ajax-form="true" data-before-callback="preventEmptySubmit">
+    
+    <div class="home-logo-wrap py-2 <?php echo e_attr($t['logo_alignment_class']); ?> mb-2 position-relative px-1" style = "display:flex;flex-direction:row; justify-content : space-between">
         <a href="<?php e_attr(url_for('site.home')); ?>" class="sp-link d-inline-flex">
             <img src="<?php echo e_attr($t['logo_url']); ?>" alt="<?php echo e_attr(get_option('site_name')); ?>" class="home-logo">
             <span id="engine-name" class="d-inline-flex position-absolute home-engine-name">
                 <?php echo e(__($t['engine.engine_name'], _T)); ?>
             </span>
         </a>
+        <input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-search'></i>&nbsp;&nbsp; Production" data-off="<i class='fa fa-info-circle'></i>&nbsp;&nbsp; Information" name = "queryType" value = "1">
     </div>
     <!-- ./home-logo-wrap -->
 
     <!-- Search form -->
-    <form method="GET" action="<?php echo e_attr(url_for('site.search')); ?>" id="searchForm" data-ajax-form="true" data-before-callback="preventEmptySubmit">
+
         <input type="hidden" name="engine" value="<?php echo e_attr($t['default_engine']); ?>" id="engine">
         <div class="form-group searchbox-group" id="home-search-group">
-                <input type="text" title="" class="form-control search-input" name="q" data-autocomplete="true" autocomplete="off" spellcheck="false" autocorrect="off" id="home-search-input">
-                <button type="submit" class="has-spinner search-btn right-0"><span class="btn-text"><?php echo svg_icon('search', 'svg-md'); ?></span>
-                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                </button>
-            </div>
-
+            <input type="text" title="" class="form-control search-input" name="q" data-autocomplete="true" autocomplete="off" spellcheck="false" autocorrect="off" id="home-search-input">
+            <button type="submit" class="has-spinner search-btn right-0"><span class="btn-text"><?php echo svg_icon('search', 'svg-md'); ?></span>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+        </div>
     </form>
 
 </div>
@@ -94,3 +98,32 @@ defined('SPARKIN') or die('xD');
         }
     </style>
 <?php endif; ?>
+
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    const isUrl = function validURL(str) {
+        if(str.indexOf('https:') != -1 && str.indexOf('http:'))
+            return true;
+        var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        return !!pattern.test(str);
+    };
+
+    const deterEngine = function(string){
+        console.log(string);
+        if (isUrl(string))
+            return "url"
+    };
+
+    $("#home-search-input").on("change paste keyup", function() {
+        console.log($(this).val()); 
+    });
+});
+</script>

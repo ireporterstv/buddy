@@ -48,6 +48,7 @@ $app->post('/pageAction/handleContactForm', CONTROLLER_NAMESPACE . 'Site\\SiteCo
     ->setMiddleware(['csrf_guard', 'honeypot']);
 
 
+
 $app->group('/system', function () use ($app) {
     /**
     * Cron Job Tasks
@@ -131,14 +132,25 @@ $app->group('/auth', function () use ($app) {
 
 
 /**
+ * Route the adding user ad clicking event
+ */
+$app->group('/clickAd', function () use ($app) {
+    /**
+    * Cron Job Tasks
+    */
+    $app->post('/', CONTROLLER_NAMESPACE . 'Site\\SiteController:handleClickAds')
+    ->name('site.clickAd');
+});
+
+/**
  * Routes for basic ajax calls
  */
 $app->group('/ajax', function () use ($app) {
-        $app->get('/emailCheck', CONTROLLER_NAMESPACE . 'Site\\AjaxController:emailCheck')
-            ->name('ajax.email_check');
+    $app->get('/emailCheck', CONTROLLER_NAMESPACE . 'Site\\AjaxController:emailCheck')
+        ->name('ajax.email_check');
 
-        $app->get('/usernameCheck', CONTROLLER_NAMESPACE . 'Site\\AjaxController:usernameCheck')
-            ->name('ajax.username_check');
+    $app->get('/usernameCheck', CONTROLLER_NAMESPACE . 'Site\\AjaxController:usernameCheck')
+        ->name('ajax.username_check');
 });
 
 /**

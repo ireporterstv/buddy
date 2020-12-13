@@ -22,6 +22,10 @@ defined('SPARKIN') or die('xD');
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//cse.google.com">
     <link rel="dns-prefetch" href="//www.google.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    
     <?php
     /**
      * Dynamic header assets
@@ -40,7 +44,6 @@ defined('SPARKIN') or die('xD');
      */
      insert('shared/sprites.svg');
     ?>
-
     <!-- Ajax Loader -->
     <div id="ajax-loader" role="bar" style="width:0;display:none" aria-hidden="true"><div class="peg"></div></div>
     <div id="ajax-loader-infinite" role="bar" style="display:none" aria-hidden="true">
@@ -48,13 +51,13 @@ defined('SPARKIN') or die('xD');
           <div class="progress-bar progress-bar-indeterminate" role="progressbar"></div>
       </div>
   </div>
-
-
+    
     <header id="header">
     <?php
     /**
      * Site header
      */
+    
     if (!$t['hide_header']) {
         echo $t['site_header'];
     }
@@ -90,4 +93,5 @@ defined('SPARKIN') or die('xD');
     ?>
 
 </body>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </html>

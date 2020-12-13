@@ -178,6 +178,7 @@ sp_register_script('jquery-countdown', site_uri('assets/js/jquery.countdown.min.
 // jQuery nestable
 sp_register_script('jquery-nestable', site_uri('assets/js/jquery.nestable.min.js'));
 
+
 sp_register_script(
     'jquery-autocomplete',
     site_uri('assets/js/jquery.auto-complete.min.js')

@@ -109,7 +109,6 @@ class AuthController extends Controller
             if (is_ajax()) {
                 return ajax_form_json(['redirect' =>  $redirectURI]);
             }
-
             return redirect($redirectURI);
         }
 

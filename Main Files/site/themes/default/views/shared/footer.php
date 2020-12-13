@@ -22,9 +22,9 @@
                         <?php echo __('footer-copyright', _T, ['year' => date('Y'), 'sitename' => get_option('site_name')]); ?>
                     </a>
                 </li>
-    </ul>
-</nav>
-</div>
+            </ul>
+        </nav>
+    </div>
 </div>
 
 </div>

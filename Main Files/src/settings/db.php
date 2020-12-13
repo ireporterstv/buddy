@@ -9,10 +9,10 @@
 $db['dbhost'] = 'localhost';
 
 // Name of your database
-$db['dbname'] = '';
+$db['dbname'] = 'based';
 
 // Database Username
-$db['username'] = '';
+$db['username'] = 'root';
 
 // Database password
 $db['password'] = '';

@@ -352,4 +352,18 @@ $app->group('/dashboard', function () use ($app) {
             ->setMiddleware('csrf_guard')
             ->name('dashboard.queries.delete_post');
     });
+
+
+    /**
+     * Urls
+     */
+    $app->group('/urls', function() use ($app) {
+        // List
+        $app->get('', CONTROLLER_NAMESPACE . 'Dashboard\\DashboardUrlsController:index')->name('dashboard.urls');
+    });
+
+    $app->group('/websites', function() use ($app) {
+        // List
+        $app->get('', CONTROLLER_NAMESPACE . 'Dashboard\\DashboardWebsitesController:index')->name('dashboard.websites');
+    });
 });

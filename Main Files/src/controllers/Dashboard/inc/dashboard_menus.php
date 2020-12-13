@@ -86,6 +86,30 @@ sp_add_sidebar_menu(
     ]
 );
 
+sp_add_sidebar_menu(
+    'urls',
+    [
+        'type'       => 'link',
+        'url'        => url_for('dashboard.urls'),
+        'label'      => __('Urls'),
+        'icon_html'  => svg_icon('chart'),
+        'active_var' => 'urls__active',
+        'permission' => 'manage_queries'
+    ]
+);
+
+sp_add_sidebar_menu(
+    'websites',
+    [
+        'type'       => 'link',
+        'url'        => url_for('dashboard.websites'),
+        'label'      => __('Websites'),
+        'icon_html'  => svg_icon('chart'),
+        'active_var' => 'websites__active',
+        'permission' => 'manage_queries'
+    ]
+);
+
 
 sp_add_sidebar_menu(
     '_customization_heading',

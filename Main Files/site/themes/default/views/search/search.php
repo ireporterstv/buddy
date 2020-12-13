@@ -6,7 +6,6 @@ defined('SPARKIN') or die('xD');
 ?>
 
 <script type="text/javascript"><?php echo $t['cse_script']; ?></script>
-
 <div class="container search-container px-sm-3 px-1">
     <div class="row no-gutters">
         <!-- Full width column for image results, otherwise sized one -->
@@ -43,10 +42,15 @@ defined('SPARKIN') or die('xD');
 
 </div>
 
+<?php if (!empty($t['scrapeResult'])) : ?>
+<div style = "position:absolute; right : 20px; z-index : 20000">
+    <?php insert('search/partials/result_box.php'); ?>
+</div>
+<? endif; ?>
+
 <?php if (!$t['is_image']) : ?>
 <div class="col-sm-4 px-sm-3 order-0 order-sm-1">
     <?php insert('search/partials/rich_card.php'); ?>
-
     <div class="ad-unit">
         <?php echo get_option('ad_unit_3'); ?>
     </div>
@@ -57,3 +61,6 @@ defined('SPARKIN') or die('xD');
 <!-- ./row-->
 </div>
 <!-- ./container -->
+
+<script>
+</script>

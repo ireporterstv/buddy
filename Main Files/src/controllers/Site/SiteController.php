@@ -16,6 +16,7 @@ use spark\models\MetaModel;
 use spark\models\QueryModel;
 use spark\models\UserModel;
 
+use spark\models\UrlModel;
 /**
 * SiteController
 *
@@ -120,6 +121,62 @@ class SiteController extends Controller
     }
 
     /**
+     * Send production query and get the scrap data function
+     * parameters
+     * query term
+     * 
+     * retruns data
+     */
+
+    public function getScrappResult($query, $queryType) {
+        if ($queryType) {
+            // Running the python scripping engine.
+            // $output = exec("python pc.py $query");
+            $argument = str_replace(" ",",,,", $query);
+            $output = exec('"C:\Program Files\Python39\python" scrapper.py '. "$argument");
+
+            return array(
+                array(
+                    'productionName' => 'iphone max 12',
+                    'imageSrc' => "https://m.media-amazon.com/images/I/717KHGCJ6eL._SS60_.jpg",
+                    'description' => 'Apple iPhone 8, 64GB, Space Gray - Fully Unlocked (Renewed)',
+                    'siteName' => $output,
+                    'price' => 200,
+                    'simbol' => '$',
+                    'rate' => 4.7,
+                    'reviews' => 234,
+                    'url' => 'https://www.amazon.com/dp/B0775MV9K2?tag=amz-mkt-chr-us-20&ascsubtag=1ba00-01000-org00-win10-other-nomod-us000-pcomp-feature-rscomp-wm-5&ref=aa_rscomp'
+                ),
+                array(
+                    'productionName' => 'Dell Laptop core',
+                    'imageSrc' => "https://m.media-amazon.com/images/I/41wDuEW9iZL._SS60_.jpg",
+                    'description' => 'Apple iPhone 8, 64GB, Space Gray - Fully Unlocked (Renewed)',
+                    'siteName'  => $output,
+                    'price' => 150,
+                    'simbol' => '$',
+                    
+                    'rate' => 4.2,
+                    'reviews' => 434,
+                    'url' => 'https://www.amazon.com/dp/B07ZPKZSSC?tag=amz-mkt-chr-us-20&ascsubtag=1ba00-01000-org00-win10-other-nomod-us000-pcomp-feature-rscomp-wm-5&ref=aa_rscomp'
+                ),
+                array(
+                    'productionName' => 'Samsung Galaxy',
+                    'imageSrc' => "https://m.media-amazon.com/images/I/71isxv6Wd-L._SS60_.jpg",
+                    'description' => 'Apple iPhone 8, 64GB, Space Gray - Fully Unlocked (Renewed)',
+                    'siteName' => 'buddy.destination',
+                    'price' => 260,
+                    'simbol' => '$',
+                    'rate' => 4.9,
+                    'reviews' => 834,
+                    'url' => 'https://www.amazon.com/dp/B07KFMTWVF?tag=amz-mkt-chr-us-20&ascsubtag=1ba00-01000-org00-win10-other-nomod-us000-pcomp-feature-rscomp-wm-5&ref=aa_rscomp'
+
+                )
+            );
+        }
+        return null;
+    }
+
+    /**
      * Search page
      */
     public function search()
@@ -130,11 +187,14 @@ class SiteController extends Controller
         $engineID = (int) $app->request->get('engine');
         $query = trim($app->request->get('q'));
 
+        $queryType = $app->request->get('queryType');
+
+        $scrapResult = $this->getScrappResult($query, $queryType);
+        
         if (empty($query)) {
             if (is_ajax()) {
                 return json(['redirect' => url_for('site.home')]);
             }
-
             return redirect_to('site.home');
         }
 
@@ -188,7 +248,7 @@ class SiteController extends Controller
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gcse, s);
         })();
-SCRIPT;
+        SCRIPT;
 
 
         $isDefaultEngine = (int) get_option('default_engine', 1) === (int) $engineID;
@@ -290,6 +350,8 @@ SCRIPT;
             'search_query'         => $query,
             'is_image'             => $isImage,
             'answer'               => $ddgAnswer,
+            'scrapeResult'         => $scrapResult,
+            'isProduct'            => $queryType
         ];
 
 
@@ -301,9 +363,9 @@ SCRIPT;
                 $data = array_merge($data, $instantAnswer['extra']);
             }
         }
+        
 
         $data["{$engine['engine_id']}_active"] = 'active';
-
         return ajax_view('search/search.php', $data);
     }
 
@@ -635,4 +697,25 @@ SCRIPT;
 
         logger()->info('Cron ran at: ' . date('d-m-Y h:i:s A'));
     }
+
+
+    /**
+     * Handle when user click the ads' area
+     */
+
+     public function handleClickAds() {
+        $app = app();
+        $req = $app->request;
+
+        $url = $req->post('urls');
+        $queryModel = new UrlModel;
+
+        $data = [
+            'cnt' => (int) $app->request->post('cnt', 1),
+            'urls' => $url,
+        ];
+        $queryModel->addUrlCnt($data);
+
+        return ;
+     }
 }
