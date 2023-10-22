@@ -4,7 +4,7 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [Supported Websites](#supported-websites)
-- [blog-post](#blog-post)
+- [Blog Post](#blog-post)
 - [Contributing](#contributing)
 - [License](#license)
 
