@@ -1,12 +1,10 @@
-# buddy# Buddy - Your Online Shopping Companion
+# Buddy - Your Online Shopping Companion
 
 ## Table of Contents
-- [Introduction](#https://amajova.com/)
+- [Introduction](#introduction)
 - [Features](#features)
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Usage](#usage)
 - [Supported Websites](#supported-websites)
+- [blog-post](#blog-post)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -25,16 +23,6 @@ Whether you're looking for electronics, clothing, or any other items, Buddy will
 - **Filtering Options**: Buddy offers filtering options, such as sorting by price, rating, or availability.
 - **Interactive Interface**: A user-friendly command-line interface makes Buddy easy to use.
 
-### Usage
-
-- To perform a product search, use the following command:
-
-   ```bash
-   python buddy.py search "product name"
-   ```
-
-- Follow the interactive prompts to select your preferred websites and filtering options.
-
 ## Supported Websites
 
 Buddy supports a variety of popular e-commerce websites, including but not limited to:
@@ -46,6 +34,10 @@ Buddy supports a variety of popular e-commerce websites, including but not limit
 - Target
 
 New websites can be easily added as plugins. If you'd like to contribute to adding support for more websites, please refer to the [Contributing](#contributing) section.
+
+## Blog Post
+
+- [AmaJova Blog](https://amajova.com/blog/)
 
 ## Contributing
 
