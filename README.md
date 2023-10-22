@@ -1,7 +1,7 @@
 # buddy# Buddy - Your Online Shopping Companion
 
 ## Table of Contents
-- [Introduction](#[introduction](https://amajova.com/))
+- [Introduction](#amajova.com/))
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
